@@ -25,11 +25,4 @@ A backend RESTful API built with **Java, Spring Boot, and MySQL**, designed to m
 - **Category Module**: `/api/categories`
 - **Comment Module**: `/api/post/{postId}/comments`
 
-## 🔗 Example Endpoints
 
-```http
-POST   /api/users/
-POST   /api/categories/
-POST   /api/user/{userId}/category/{categoryId}/posts
-GET    /api/posts/search/{keywords}
-POST   /api/post/{postId}/comments
