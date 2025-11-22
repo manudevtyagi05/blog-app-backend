@@ -1,104 +1,121 @@
-📘 Blog Application Backend – Spring Boot (v1.0)
+<div align="center">
 
-A fully modular, production-ready RESTful blog backend built with Spring Boot, Spring Security 6, JWT, and MySQL.
-This project aims to evolve into a complete blogging platform with multi-user support, roles, content management, likes, tags, categories, comments, analytics, and more.
+# 📘 **Blog Application Backend – Spring Boot**
+### 🚀 Modern, Modular & Secure REST API for a Complete Blogging Platform  
+**Version: v1.0 (Current)**
 
-🧩 📌 Version History
-🟦 Version 1.0 – Initial Release (Current Version)
+![Java](https://img.shields.io/badge/Java-17-blue)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.0-green)
+![JWT](https://img.shields.io/badge/Security-JWT-orange)
+![MySQL](https://img.shields.io/badge/Database-MySQL-blue)
+![Status](https://img.shields.io/badge/Build-Passing-brightgreen)
 
-This version includes the core backend foundation for a modern blog system.
+</div>
 
-✅ 1. Authentication & Authorization
+---
 
-JWT-based login
+# 📌 **Table of Contents**
+- [✨ Overview](#-overview)
+- [🧩 Features (v1.0)](#-features-v10)
+- [📁 Project Structure](#-project-structure)
+- [⚙️ Setup & Installation](#️-setup--installation)
+- [🧭 API Endpoints](#-api-endpoints)
+- [🛣 Roadmap (Upcoming Versions)](#-roadmap-upcoming-versions)
+- [🛠 Improvements Planned](#-improvements-planned)
+- [📜 License](#-license)
 
-Token validation filter
+---
 
-BCrypt password hashing
+# ✨ **Overview**
+A **production-ready**, cleanly architected backend for a blogging platform built with:
 
-CustomUserDetailsService
+- **Spring Boot 3**
+- **Spring Security 6**
+- **JWT Authentication**
+- **MySQL**
+- **DTO-driven clean API responses**
+- **Modular layered architecture**
 
-Stateless session management
+Designed to scale into a full-featured blogging ecosystem with posts, categories, comments, likes, tagging, analytics, notifications, and more.
 
-Role: "USER" (Admin/Author roles planned in v2)
+---
 
-Protection of all sensitive routes
+# 🧩 **Features (v1.0)**
 
-Automatic user extraction using @AuthenticationPrincipal
+## 🔐 **1. Authentication & Authorization**
+- JWT login + token validation filter  
+- BCrypt password hashing  
+- Stateless security  
+- `@AuthenticationPrincipal` user injection  
+- CustomUserDetailsService  
+- Role: `USER` *(Admin roles coming soon)*  
+- All protected API routes secured  
 
-✅ 2. Exception Handling
+---
 
-Custom global exception handling with:
+## ⚠️ **2. Global Exception Handling**
+Standard JSON error format:
 
-@ControllerAdvice
-
-Structured error response:
-
+```json
 {
   "timestamp": "",
   "success": false,
   "status": 400,
   "error": "BAD_REQUEST",
-  "message": "Detailed message",
+  "message": "Meaningful error message",
   "path": "/endpoint"
 }
 
 
-Handling:
+Handles:
 
-ResourceNotFound
+Bad Request
 
-BadRequest
-
-Validation
-
-Unauthorized
+Resource Not Found
 
 Forbidden
 
-Duplicate name/email
+Unauthorized
 
-JWT errors (Expired, Invalid Token, Signature error)
+Duplicate email/username
 
-✅ 3. User Module
+JWT errors
 
-Supports full CRUD for user profile:
+Validation errors
 
-User Entity Includes:
+👤 3. User Module
+
+User Fields:
 
 username
 
 email
 
-password
+password (hashed)
 
 bio
 
-avatar
+avatarUrl
 
-createdAt
-
-updatedAt
+createdAt / updatedAt
 
 Features:
 
 Update profile
 
-Delete account
+Delete profile
 
-Fetch profile by ID/name
+Fetch by ID
 
-DTO-based clean responses (never returning password)
+Fetch by username
 
-✅ 4. Post Module
+Clean DTO (no password leaked)
 
-Post Entity Features:
+📝 4. Post Module
 
-Title
+Post Features:
 
-Slug (auto-generated)
-
-Content
+Title, slug, content
 
 Category
 
@@ -106,17 +123,15 @@ Tags
 
 Comments
 
+Likes count
+
 Views
 
-Likes
-
-Status (DRAFT / PUBLISHED)
-
-Author mapping
+Status: DRAFT / PUBLISHED
 
 createdAt / updatedAt
 
-Supports:
+Supported Operations:
 
 Create post
 
@@ -126,184 +141,146 @@ Publish post
 
 Delete post
 
-Get post by ID
+Fetch by ID
 
 Pagination
 
-Fetch by author
+Get posts by author
 
-✅ 5. Category Module
+🗂 5. Category Module
 
-Create category
+Create
 
-Update category
+Update
 
-Delete category
+Delete
 
-Get category by ID
+Fetch by ID
 
-Get category by name
+Fetch by name
 
 List all categories
 
-Posts mapped inside CategoryResponse
+Posts included inside response
 
-✅ 6. Tag Module
+🏷 6. Tag Module
 
-Auto-create tags if not existing
+Auto-create tags if they don’t exist
 
-Process list of tag names
+Many-to-many mapping
 
-Many-to-many connection
+Returns tag names in responses
 
-Return list of tag names in PostResponse
+💬 7. Comment Module
 
-✅ 7. Comment Module
-
-Create comment
+Add comment
 
 Update comment
 
 Delete comment
 
-Get all comments for a post (DESC order)
+List comments for a post (DESC)
 
-Strict permission: only comment owner can modify/delete
+Strict permission checks: only comment owner can modify/delete.
 
-CommentResponse includes:
-
-id
-
-userId
-
-username
-
-postId
-
-content
-
-createdAt
-
-✅ 8. Like Module
+❤️ 8. Like Module
 
 Toggle like/unlike
 
-UniqueConstraint(user_id + post_id)
+Unique user + post constraint
 
-Count likes
+Count likes on a post
 
-Included in PostResponse (likes)
+Included in PostResponse
 
-🔧 9. Data Transfer Objects (DTOs)
+📦 9. DTO System
 
-Created separately for every module:
+Separate DTOs for every module:
 
-UserRequest, UserResponse
+UserRequest / UserResponse
 
-PostRequest, PostResponse
+PostRequest / PostResponse
 
-CategoryRequest, CategoryResponse
+CommentRequest / CommentResponse
 
-TagResponse
+CategoryRequest / CategoryResponse
 
-CommentRequest, CommentResponse
+TagRequest / TagResponse
 
-LikeResponse (if needed)
+LikeResponse
 
-This ensures clean, secure, front-end optimized API responses.
+Ensures:
+✔ clean API structure
+✔ no infinite recursion
+✔ frontend-friendly responses
 
-🧱 10. Project Architecture (Clean Code)
-src/main/java/com.blog_backend
+📁 Project Structure
+src/main/java/com/blog_backend
 │
-├── controller        # REST controllers
-├── service           # Interfaces
-├── service.impl      # Implementations
-├── repository        # Spring Data JPA Repos
-├── model             # Entities
-├── payload           # DTOs
-├── security          # JWT, Filters, Config
-└── exception         # Global error handling
+├── controller          # REST Controllers
+├── service             # Interfaces
+├── service.impl        # Implementations
+├── repository          # JPA Repositories
+├── model               # Entities
+├── payload             # DTOs
+├── security            # JWT, Filters, Security Config
+└── exception           # Global Exception Handling
 
-🚀 🔧 How to Run (Local Setup)
-Prerequisites
+⚙️ Setup & Installation
+1. Clone the Repository
+git clone https://github.com/manudevtyagi05/blog-app-backend.git
+cd blog-app-backend
 
-Java 17+
+2. Configure Database
 
-Maven
+application.properties
 
-MySQL
-
-1. Clone the repo
-git clone https://github.com/your-username/blog-backend.git
-cd blog-backend
-
-2. Configure MySQL in application.properties
 spring.datasource.url=jdbc:mysql://localhost:3306/blog_app
 spring.datasource.username=root
-spring.datasource.password=your_password
+spring.datasource.password=YOUR_PASSWORD
+
 spring.jpa.hibernate.ddl-auto=update
 
-3. Run
+3. Run the App
 mvn spring-boot:run
 
-🧭 API Overview (V1)
-Auth Routes
-
-POST /v1/auth/register
-
-POST /v1/auth/login
-
-User Routes
-
-PUT /v1/user/{id}
-
-DELETE /v1/user/{id}
-
-GET /v1/user/id/{id}
-
-GET /v1/user/name/{name}
-
-Post Routes
-
-POST /v1/posts
-
-PUT /v1/posts/{id}
-
-PUT /v1/posts/{id}/publish
-
-GET /v1/posts/{id}
-
-GET /v1/posts?page=&size=
-
-Category Routes
-
-POST /v1/categories
-
-GET /v1/categories/{id}
-
-GET /v1/categories/name/{name}
-
-GET /v1/categories
-
-Comment Routes
-
-POST /v1/comments/post/{postId}
-
-PUT /v1/comments/{id}
-
-DELETE /v1/comments/{id}
-
-GET /v1/comments/post/{postId}
-
-Like Routes
-
-POST /v1/likes/post/{postId}
-
-GET /v1/likes/post/{postId}
-
-🌟 📌 Upcoming Versions (Roadmap)
-🟩 Version 2.0 – Admin Panel + Roles + Images
-🔐 Role-Based Access Control (RBAC)
+🧭 API Endpoints (v1)
+🔐 Auth
+Method	Endpoint	Description
+POST	/v1/auth/register	Register user
+POST	/v1/auth/login	Login + JWT
+👤 User
+Method	Endpoint	Description
+PUT	/v1/user/{id}	Update profile
+DELETE	/v1/user/{id}	Delete profile
+GET	/v1/user/id/{id}	Get user by ID
+GET	/v1/user/name/{name}	Get user by name
+📝 Post
+Method	Endpoint	Description
+POST	/v1/posts	Create post
+PUT	/v1/posts/{id}	Update post
+PUT	/v1/posts/{id}/publish	Publish post
+GET	/v1/posts/{id}	Get post
+GET	/v1/posts?page=&size=	Pagination
+🗂 Category
+Method	Endpoint
+POST	/v1/categories
+GET	/v1/categories/{id}
+GET	/v1/categories/name/{name}
+GET	/v1/categories
+💬 Comment
+Method	Endpoint
+POST	/v1/comments/post/{postId}
+PUT	/v1/comments/{id}
+DELETE	/v1/comments/{id}
+GET	/v1/comments/post/{postId}
+❤️ Like
+Method	Endpoint
+POST	/v1/likes/post/{postId}
+GET	/v1/likes/post/{postId}
+🛣 Roadmap (Upcoming Versions)
+🟩 v2.0 – Admin Panel + Roles + Media
+🔐 Role-Based Access Control
 
 ADMIN
 
@@ -311,119 +288,83 @@ AUTHOR
 
 USER
 
-🖼 Media Storage
+🖼 Media Uploads
 
-Upload post images
+Post images
 
-Upload user avatar
+User avatars
 
-Support AWS S3 / Cloudinary / Local storage
+Cloudinary / AWS S3
 
-📝 Drafts & Autosave
+📝 Draft & Autosave
 
-Save draft
+Auto-save posts
 
-Auto-save while writing
+Draft mode
 
-🚦 Post Approval Workflow
+🚦 Approval Workflow
 
-Authors write → Admin approves → Post publishes
+Author → Admin → Publish
 
-🟧 Version 3.0 – Advanced Blog Features
-📈 Analytics Dashboard
+🟧 v3.0 – Advanced Blog Features
 
-Total views
+Full-text search
 
-Popular posts
-
-Most liked posts
-
-Daily visitor stats
-
-🔍 Search & Filters
-
-Full-text search (title + content)
-
-Filter by category
-
-Filter by tag
-
-Sort by date, views, likes
-
-🏷 Advanced Tagging
+Sort by likes/views/date
 
 Trending tags
 
-Tag cloud API
+Analytics dashboard
 
-🟥 Version 4.0 – Social + Notifications
-🎯 Realtime Notifications
+🟥 v4.0 – Social + Notifications
 
-Someone liked your post
+Real-time notifications (likes/comments)
 
-New comment
+Reply to comment (threading)
 
-Reply-to-comment
+Replies tree
 
-Admin announcements
-
-💬 Comment Replies (Threaded Comments)
-
-Multi-level replying
-
-Display comment tree
-
-🟪 Version 5.0 – Monetization + SEO + AI Features
+🟪 v5.0 – Monetization + SEO + AI
 💵 Monetization
 
 Ads
 
 Paid posts
 
-Subscriptions
+Subscription plans
 
-🌐 SEO Tools
+🌐 SEO
 
 Meta title
 
 Meta description
 
-Auto-generate SEO tags
+Auto SEO Tags
 
 🤖 AI Features
 
 Auto-suggest tags
 
-Auto-summarize content
+Post summarizer
 
-AI proofreading
+Grammar & tone correction
 
-🔥 Planned Improvements for Current Version
-✔ Improve Exception Messages
+🛠 Improvements Planned for Current Version
 
-More readable frontend-friendly messages.
+Better error messages
 
-✔ Add standard ErrorCodes.
-✔ Add validation annotations
+Standard ErrorCode enums
 
-@NotNull, @Email, @Length, etc.
+Add validation annotations
 
-✔ Improve PostResponse to avoid recursion
+Cache frequently used resources
 
-Lazy loading optimization.
+Fix lazy-loading performance
 
-✔ Add caching
+Unit + Integration tests
 
-For categories, tags, post lists.
+Testcontainers
 
-✔ Add tests
-
-Unit tests (JUnit)
-
-Integration tests
-
-Testcontainers (optional)
-
-🏁 Final Note
-
-This README represents a professional-quality project roadmap suitable for GitHub, team onboarding, or portfolio use.
+<div align="center">
+⭐ If you like this project, don't forget to star the repo!
+</div> ```
