@@ -1,7 +1,9 @@
 <div align="center">
 
 # 📘 **Blog Application Backend – Spring Boot**
-### 🚀 Modern, Modular & Secure REST API for a Complete Blogging Platform  
+
+### 🚀 Modern, Modular & Secure REST API for a Complete Blogging Platform
+
 **Version: v1.0 (Current)**
 
 ![Java](https://img.shields.io/badge/Java-17-blue)
@@ -15,58 +17,76 @@
 ---
 
 # 📌 **Table of Contents**
+
 - [✨ Overview](#-overview)
+<!-- Prettified README. The original README is preserved in `Readme.original.md`. -->
 - [🧩 Features (v1.0)](#-features-v10)
 - [📁 Project Structure](#-project-structure)
-- [⚙️ Setup & Installation](#️-setup--installation)
+
+# 📘 Blog Application Backend — Spring Boot
+
 - [🧭 API Endpoints](#-api-endpoints)
 - [🛣 Roadmap (Upcoming Versions)](#-roadmap-upcoming-versions)
-- [🛠 Improvements Planned](#-improvements-planned)
+  [![Java 17](https://img.shields.io/badge/Java-17-blue.svg)](https://www.oracle.com/java/)
+  [![Spring Boot 3](https://img.shields.io/badge/Spring%20Boot-3.0-green.svg)](https://spring.io/projects/spring-boot)
+  [![JWT](https://img.shields.io/badge/Auth-JWT-orange.svg)](https://jwt.io)
+  [![MySQL](https://img.shields.io/badge/DB-MySQL-blue.svg)](https://www.mysql.com)
 - [📜 License](#-license)
 
 ---
 
 # ✨ **Overview**
+
 A **production-ready**, cleanly architected backend for a blogging platform built with:
 
-- **Spring Boot 3**
-- **Spring Security 6**
-- **JWT Authentication**
-- **MySQL**
-- **DTO-driven clean API responses**
-- **Modular layered architecture**
-
-Designed to scale into a full-featured blogging ecosystem with posts, categories, comments, likes, tagging, analytics, notifications, and more.
+- [Overview](#overview)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Requirements](#requirements)
+- [Quick Start](#quick-start)
+- [Configuration](#configuration)
+- [API Summary](#api-summary)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
+  Designed to scale into a full-featured blogging ecosystem with posts, categories, comments, likes, tagging, analytics, notifications, and more.
 
 ---
 
 # 🧩 **Features (v1.0)**
 
+A production-minded REST API for blogs: users, posts, comments, likes, categories and tags. It uses JWT for authentication and DTOs for clean responses.
+
 ## 🔐 **1. Authentication & Authorization**
-- JWT login + token validation filter  
-- BCrypt password hashing  
-- Stateless security  
-- `@AuthenticationPrincipal` user injection  
-- CustomUserDetailsService  
-- Role: `USER` *(Admin roles coming soon)*  
-- All protected API routes secured  
+
+## Features
+
+- JWT authentication and Spring Security
+- BCrypt password hashing
+- User registration and profile management
+- Post CRUD with draft/publish workflow
+- Categories & tags (many-to-many)
+- Comments and likes with ownership checks
+- Global exception handling and DTO-based responses
+- Role: `USER` _(Admin roles coming soon)_
+- All protected API routes secured
 
 ---
 
-## ⚠️ **2. Global Exception Handling**
-Standard JSON error format:
-
-```json
-{
-  "timestamp": "",
+- JWT login + token validation filter
+- Stateless security
+- `@AuthenticationPrincipal` user injection
+- CustomUserDetailsService
+- Role: `USER` _(Admin roles coming soon)_
+- All protected API routes secured
   "success": false,
   "status": 400,
   "error": "BAD_REQUEST",
   "message": "Meaningful error message",
   "path": "/endpoint"
-}
-Handles:
-Bad Request
+  }
+  Handles:
+  Bad Request
 
 Resource Not Found
 
@@ -90,267 +110,107 @@ password (hashed)
 
 bio
 
-avatarUrl
+## Project Structure (high level)
 
-createdAt / updatedAt
+- `src/` — application source
+  - `auth/` — authentication controllers/services
+  - `fhir-api/`, `openmrs/` — domain-specific modules
+  - `prisma/` — database module
+  - `patients/`, `queue/`, `redis/` — additional modules
+  - `config/`, `common/`, `crypto/` — cross-cutting concerns
 
-Features
-Update profile
+Refer to the `src/` folder for full module details.
 
-Delete profile
+## Requirements
 
-Fetch by ID
+- Java 17+
+- Maven
+- MySQL (or compatible DB)
 
-Fetch by username
+## Quick Start
 
-Clean DTO responses (no password exposure)
+1. Clone the repository:
 
-📝 4. Post Module
-Post Features
-Title, slug, content
+```bash
+git clone <repo-url>
+cd <repo-folder>
+```
 
-Category
+2. Configure the database in `src/main/resources/application.properties` (or via environment variables):
 
-Tags
-
-Comments
-
-Likes count
-
-Views
-
-Status: DRAFT / PUBLISHED
-
-createdAt / updatedAt
-
-Supported Operations
-Create post
-
-Update post
-
-Publish post
-
-Delete post
-
-Fetch by ID
-
-Pagination
-
-Get posts by author
-
-🗂 5. Category Module
-Create
-
-Update
-
-Delete
-
-Fetch by ID
-
-Fetch by name
-
-List all categories
-
-Returns posts inside CategoryResponse
-
-🏷 6. Tag Module
-Auto-create tags if not existing
-
-Many-to-many relationship
-
-Returns tag names inside PostResponse
-
-💬 7. Comment Module
-Add comment
-
-Update comment
-
-Delete comment
-
-List comments for a post (DESC order)
-
-Strict permission enforcement: only owner may edit/delete
-
-❤️ 8. Like Module
-Toggle like/unlike
-
-Enforced unique constraint: (user + post)
-
-Like count
-
-Included in PostResponse
-
-📦 9. DTO System
-Available DTOs
-UserRequest / UserResponse
-
-PostRequest / PostResponse
-
-CommentRequest / CommentResponse
-
-CategoryRequest / CategoryResponse
-
-TagRequest / TagResponse
-
-LikeResponse
-
-Benefits
-✔ Clean API structure
-✔ No infinite recursion
-✔ Frontend-friendly responses
-
-📁 Project Structure
-bash
-Copy code
-src/main/java/com/blog_backend
-│
-├── controller          # REST Controllers
-├── service             # Interfaces
-├── service.impl        # Implementations
-├── repository          # JPA Repositories
-├── model               # Entities
-├── payload             # DTOs
-├── security            # JWT, Filters, Security Config
-└── exception           # Global Exception Handling
-⚙️ Setup & Installation
-1. Clone the Repository
-bash
-Copy code
-git clone https://github.com/manudevtyagi05/blog-app-backend.git
-cd blog-app-backend
-2. Configure Database
-Add in application.properties:
-
-properties
-Copy code
+```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/blog_app
 spring.datasource.username=root
 spring.datasource.password=YOUR_PASSWORD
-
 spring.jpa.hibernate.ddl-auto=update
-3. Run the Application
-bash
-Copy code
+```
+
+3. Build and run:
+
+```bash
+mvn clean package
 mvn spring-boot:run
-🧭 API Endpoints (v1)
-🔐 Auth
-Method	Endpoint	Description
-POST	/v1/auth/register	Register user
-POST	/v1/auth/login	Login + JWT
+```
 
-👤 User
-Method	Endpoint	Description
-PUT	/v1/user/{id}	Update profile
-DELETE	/v1/user/{id}	Delete profile
-GET	/v1/user/id/{id}	Get user by ID
-GET	/v1/user/name/{name}	Get user by name
+Or run the produced jar:
 
-📝 Post
-Method	Endpoint	Description
-POST	/v1/posts	Create post
-PUT	/v1/posts/{id}	Update post
-PUT	/v1/posts/{id}/publish	Publish post
-GET	/v1/posts/{id}	Get post
-GET	/v1/posts?page=&size=	Pagination
+```bash
+java -jar target/*.jar
+```
 
-🗂 Category
-Method	Endpoint
-POST	/v1/categories
-GET	/v1/categories/{id}
-GET	/v1/categories/name/{name}
-GET	/v1/categories
+## Configuration
 
-💬 Comment
-Method	Endpoint
-POST	/v1/comments/post/{postId}
-PUT	/v1/comments/{id}
-DELETE	/v1/comments/{id}
-GET	/v1/comments/post/{postId}
+- Override settings via `application.properties` or environment variables.
+- Configure JWT secrets and expiry in your security config (e.g., `security.jwt.secret`).
 
-❤️ Like
-Method	Endpoint
-POST	/v1/likes/post/{postId}
-GET	/v1/likes/post/{postId}
+## API Summary
 
-🛣 Roadmap (Upcoming Versions)
-🟩 v2.0 – Admin Panel + Roles + Media
-🔐 Role-Based Access Control
-ADMIN
+Base path: `/v1` (example)
 
-AUTHOR
+- Auth
 
-USER
+  - `POST /v1/auth/register` — register user
+  - `POST /v1/auth/login` — login and receive JWT
 
-🖼 Media Uploads
-Post images
+- Users
 
-User avatars
+  - `PUT /v1/user/{id}` — update profile
+  - `DELETE /v1/user/{id}` — delete profile
+  - `GET /v1/user/id/{id}` — get user by ID
+  - `GET /v1/user/name/{name}` — get user by username
 
-Cloudinary / AWS S3
+- Posts
 
-📝 Draft + Autosave
-Auto-save editor
+  - `POST /v1/posts` — create post
+  - `PUT /v1/posts/{id}` — update post
+  - `PUT /v1/posts/{id}/publish` — publish post
+  - `GET /v1/posts/{id}` — get post
+  - `GET /v1/posts?page=&size=` — list posts (pagination)
 
-Draft mode
+- Categories & Tags
 
-🚦 Approval Workflow
-Author → Admin → Publish
+  - `POST /v1/categories` — create category
+  - `GET /v1/categories` — list categories
+  - `GET /v1/categories/{id}` — get category
 
-🟧 v3.0 – Advanced Blog Features
-Full-text search
+- Comments
 
-Sort by likes / views / newest
+  - `POST /v1/comments/post/{postId}` — add comment
+  - `PUT /v1/comments/{id}` — update comment
+  - `DELETE /v1/comments/{id}` — delete comment
 
-Trending tags
+- Likes
+  - `POST /v1/likes/post/{postId}` — toggle like
+  - `GET /v1/likes/post/{postId}` — get likes for post
 
-Analytics dashboard
+For request/response shapes, inspect DTOs under `src/**/dto` and controller tests.
 
-🟥 v4.0 – Social + Notifications
-Real-time notifications
+## Roadmap
 
-Threaded/reply comments
+- v2.0: Admin roles, media uploads, improved RBAC
+- v3.0+: Full-text search, analytics, trending features
 
-Replies tree
+## Contributing
 
-🟪 v5.0 – Monetization + SEO + AI
-💵 Monetization
-Ads
+Contributions welcome — open issues or PRs. Keep changes focused and include tests for new behavior.
 
-Paid posts
-
-Subscriptions
-
-🌐 SEO
-Meta title
-
-Meta description
-
-Auto-SEO tags
-
-🤖 AI Features
-Auto-generate tags
-
-Post summarizer
-
-Grammar improvement
-
-🛠 Improvements Planned for Current Version
-Enhanced error messages
-
-Standard ErrorCode enums
-
-Add validation annotations
-
-Cache frequently used data
-
-Fix lazy-loading performance
-
-Unit + Integration Tests
-
-Testcontainers support
-
-<div align="center">
-⭐ If you like this project, don't forget to star the repo!
-
-</div> ```roject, don't forget to star the repo!
-</div> ```
