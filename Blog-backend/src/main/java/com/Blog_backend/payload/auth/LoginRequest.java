@@ -1,0 +1,15 @@
+package com.Blog_backend.payload.auth;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class LoginRequest {
+    public String email;
+    public String password;
+}
