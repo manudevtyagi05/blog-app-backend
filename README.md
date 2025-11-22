@@ -209,8 +209,3 @@ For request/response shapes, inspect DTOs under `src/**/dto` and controller test
 
 - v2.0: Admin roles, media uploads, improved RBAC
 - v3.0+: Full-text search, analytics, trending features
-
-## Contributing
-
-Contributions welcome — open issues or PRs. Keep changes focused and include tests for new behavior.
-
