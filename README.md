@@ -23,16 +23,6 @@
 - [🧩 Features (v1.0)](#-features-v10)
 - [📁 Project Structure](#-project-structure)
 
-# 📘 Blog Application Backend — Spring Boot
-
-- [🧭 API Endpoints](#-api-endpoints)
-- [🛣 Roadmap (Upcoming Versions)](#-roadmap-upcoming-versions)
-  [![Java 17](https://img.shields.io/badge/Java-17-blue.svg)](https://www.oracle.com/java/)
-  [![Spring Boot 3](https://img.shields.io/badge/Spring%20Boot-3.0-green.svg)](https://spring.io/projects/spring-boot)
-  [![JWT](https://img.shields.io/badge/Auth-JWT-orange.svg)](https://jwt.io)
-  [![MySQL](https://img.shields.io/badge/DB-MySQL-blue.svg)](https://www.mysql.com)
-- [📜 License](#-license)
-
 ---
 
 # ✨ **Overview**
@@ -110,14 +100,6 @@ password (hashed)
 
 bio
 
-## Project Structure (high level)
-
-- `src/` — application source
-  - `auth/` — authentication controllers/services
-  - `fhir-api/`, `openmrs/` — domain-specific modules
-  - `prisma/` — database module
-  - `patients/`, `queue/`, `redis/` — additional modules
-  - `config/`, `common/`, `crypto/` — cross-cutting concerns
 
 Refer to the `src/` folder for full module details.
 
