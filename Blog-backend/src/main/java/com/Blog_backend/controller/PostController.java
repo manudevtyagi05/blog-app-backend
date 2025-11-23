@@ -75,6 +75,17 @@ public class PostController {
                 .build();
     }
 
+    @GetMapping("/publish")
+    public ApiResponse<Page<PostResponse>> getALlPublish(Pageable pageable) {
+        Page<PostResponse> postResponse = postService.getAllPublish(pageable);
+
+        return ApiResponse.<Page<PostResponse>>builder()
+                .success(true)
+                .data(postResponse)
+                .message("Post Publish successfully")
+                .build();
+    }
+
     @GetMapping
     public ApiResponse<Page<PostResponse>> getAll(Pageable pageable) {
         Page<PostResponse> postResponse =  postService.getAll(pageable);

@@ -49,6 +49,7 @@ public class PostServiceImpl implements PostService {
                 .title(req.title)
                 .slug(SlugUtil.toSlug(req.title))
                 .content(req.content)
+                .coverImage(req.coverImage)
                 .status(PostStatus.valueOf(req.status))
                 .author(author)
                 .category(category)
@@ -74,6 +75,7 @@ public class PostServiceImpl implements PostService {
         post.setTitle(req.title);
         post.setSlug(SlugUtil.toSlug(req.title));
         post.setContent(req.content);
+        post.setCoverImage(req.coverImage);
         post.setStatus(PostStatus.valueOf(req.status));
         post.setUpdatedAt(LocalDateTime.now());
         if (req.categoryId!= null) post.setCategory(categoryRepo.findById(req.categoryId).orElseThrow());
@@ -132,6 +134,11 @@ public class PostServiceImpl implements PostService {
         return postRepo.findAllByAuthorId(authorId ,pageable).map(this::toResponse);
     }
 
+    @Override
+    public Page<PostResponse> getAllPublish(Pageable pageable) {
+        return postRepo.findPublished(pageable).map(this::toResponse);
+    }
+
 
     private List<Tag> processTags(List<String> tags) {
         List<Tag> tagList = new ArrayList<>();
@@ -184,6 +191,7 @@ public class PostServiceImpl implements PostService {
                 .updatedAt(post.getUpdatedAt())
                 .build();
     }
+
 
 
 

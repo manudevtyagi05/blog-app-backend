@@ -31,6 +31,8 @@ public class CategoryServiceImpl implements CategoryService {
                 .name(req.getName())
                 .build();
 
+        categoryRepo.save(category);
+
         return toResponse(category);
     }
 
@@ -85,6 +87,7 @@ public class CategoryServiceImpl implements CategoryService {
                 .posts(category.getPosts() != null
                         ? category.getPosts().stream()
                         .map(post -> PostResponse.builder()
+                                .id(post.getId())
                                 .title(post.getTitle())
                                 .slug(post.getSlug())
                                 .content(post.getContent())
@@ -96,6 +99,9 @@ public class CategoryServiceImpl implements CategoryService {
                                 .comments(post.getComments() !=null
                                         ? post.getComments().stream()
                                         .map(comment -> CommentResponse.builder()
+                                                .id(comment.getId())
+                                                .postId(comment.getPost().getId())
+                                                .userId(comment.getUser().getId())
                                                 .username(comment.getUser().getUsername())
                                                 .content(comment.getContent())
                                                 .createdAt(comment.getCreatedAt())

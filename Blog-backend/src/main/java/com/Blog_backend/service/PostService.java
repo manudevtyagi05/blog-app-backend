@@ -14,4 +14,5 @@ public interface PostService {
     PostResponse getPost(Long id);
     Page<PostResponse> getAll(Pageable pageable);
     Page<PostResponse> getByAuthorId(Long authorId, Pageable pageable);
+    Page<PostResponse> getAllPublish(Pageable pageable);
 }

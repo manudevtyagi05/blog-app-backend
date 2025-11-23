@@ -15,6 +15,7 @@ import java.util.List;
 public class PostRequest {
     public String title;
     public String content;
+    public String coverImage;
     public Long categoryId;
     public List<String> tags;
     public String status;
