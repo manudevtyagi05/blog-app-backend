@@ -139,6 +139,15 @@ public class PostServiceImpl implements PostService {
         return postRepo.findPublished(pageable).map(this::toResponse);
     }
 
+    @Override
+    public List<PostResponse> searchPosts(String keyword) {
+       List<Post> posts = postRepo.searchPosts(keyword);
+
+       return posts.stream()
+               .map(this::toResponse)
+               .toList();
+    }
+
 
     private List<Tag> processTags(List<String> tags) {
         List<Tag> tagList = new ArrayList<>();

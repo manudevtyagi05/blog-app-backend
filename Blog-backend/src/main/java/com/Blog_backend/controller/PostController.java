@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/v1/posts")
@@ -109,4 +111,14 @@ public class PostController {
                 .build();
     }
 
+    @GetMapping("/search")
+    public ApiResponse<List<PostResponse>> searchPosts(@RequestParam String keyword) {
+        List<PostResponse> postResponses = postService.searchPosts(keyword);
+
+        return ApiResponse.<List<PostResponse>>builder()
+                .success(true)
+                .data(postResponses)
+                .message("Get All searched posts")
+                .build();
+    }
 }
